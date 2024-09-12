@@ -1,6 +1,6 @@
 # search_demo
 
-部署地址： [Search](search.sduoooh.me)
+部署地址： [Search](https://search.sduoooh.me)
 
 
 # 介绍
