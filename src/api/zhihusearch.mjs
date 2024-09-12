@@ -8,40 +8,22 @@ class ZhihuSearch {
     t2 = '2.0'
     xzse93 = '101_3_3.0'
 
-    UA = ''
-    dc0 = ''
-    xZst81 = ''
-    cookies = ''
-    isSign = false
-
-    constructor() {
-        const _search_userData_ = useStorage(
-            '_search_userData_', {
-            _search_userData_: {
-                isSign: false,
-                dc0: '',
-                UA: '',
-                cookies: '',
-                xZst81: ''
-            }
-        },
-            localStorage,
-            {
-                mergeDefaults: true
-            }
-        )
-        this.dc0 = _search_userData_.value.dc0
-        this.UA = _search_userData_.value.UA
-        this.cookies = _search_userData_.value.cookies
-        this.xZst81 = _search_userData_.value.xZst81
-        this.isSign = _search_userData_.value.isSign
-    }
+    data = useStorage(
+        '_search_userData_', {
+            isSign: false,
+            dc0: '',
+            UA: '',
+            cookies: '',
+            xZst81: ''
+    },
+        localStorage
+    )
 
     get_xzse96(path) {
         var cs
         var xzse93 = this.xzse93
-        var xZst81 = this.xZst81
-        var dc0 = this.dc0
+        var xZst81 = this.data.xZst81
+        var dc0 = this.data.dc0
         var t2 = this.t2
         !function (u) {
             "use strict";
@@ -810,15 +792,15 @@ class ZhihuSearch {
     }
 
     async search(query, offset = 0) {
-        if (!this.isSign) {
+        if (!this.data.isSign) {
             return
         }
         var xzse93 = this.xzse93
+        var cookies = this.data.cookies
+        var UA = this.data.UA
         query = encodeURIComponent(query)
         var path = `/api/v4/search_v3?gk_version=gz-gaokao&t=general&q=${query}&correction=1&offset=${offset}&limit=20&filter_fields=&lc_idx=0&show_all_topics=0&search_source=Normal`
         var xzse96 = this.get_xzse96(path)
-        var cookies = this.cookies
-        var UA = this.UA
         try {
             const res = await fetch(backendUrl, {
                 method: "POST",
