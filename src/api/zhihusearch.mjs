@@ -823,6 +823,9 @@ class ZhihuSearch {
             const res = await fetch(backendUrl, {
                 method: "POST",
                 mode: "cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify({
                     url: `https://www.zhihu.com` + path,
                     headers: {
